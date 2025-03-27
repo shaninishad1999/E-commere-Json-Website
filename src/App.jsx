@@ -1,0 +1,66 @@
+import React, { useState } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Layout from './Layout';
+import Home from './pages/Home';
+import Contact from './components/Contact';
+import About from './components/About';
+import { Toaster } from "react-hot-toast";
+import CartData from './pages/CartData';
+import Beverages from './prodcutCategory/Beverages';
+import Fruits from './prodcutCategory/Fruits';
+import GrainsRice from './prodcutCategory/GrainsRice';
+import NaturalSweeteners from './prodcutCategory/NaturalSweeteners';
+import Product from './components/Product';
+import CustomNavbar from './components/CustomNavbar';
+import LoginForm from './pages/LoginForm';
+import SignupForm from './pages/SignupForm';
+import AuthModal from './auth/AuthModal';
+
+
+
+const App = () => {
+  const [showAuthModal, setShowAuthModal] = useState(false);
+
+  const openLoginModal = () => {
+    setShowAuthModal(true);
+  };
+
+  const closeAuthModal = () => {
+    setShowAuthModal(false);
+  };
+
+
+
+  return (
+    <>
+     
+      <BrowserRouter>
+      <CustomNavbar onLoginClick={openLoginModal}/>
+      {showAuthModal && <AuthModal onClose={closeAuthModal} />}
+        <Toaster /> 
+        <Routes>
+          <Route path='/' element={<Layout/>}>
+            <Route index element={<Home/>}/>
+            <Route path='/login' element={<LoginForm/>}/>
+            <Route path="/signup" element={<SignupForm/>} />
+            <Route path='/contact' element={<Contact/>}/>
+            <Route path='/about' element={<About/>}/>
+            <Route path='/cartdata' element={<CartData/>}/>
+            <Route path='/shop' element={<Product/>}/>
+
+            
+            {/* Category Routes */}
+            {/* <Route path='/category' element={<C/>}/> */}
+            <Route path='/category/beverages' element={<Beverages/>}/>
+            <Route path='/category/fruits' element={<Fruits/>}/>
+            <Route path='/category/grainsrice' element={<GrainsRice/>}/>
+            <Route path='/category/naturalsweeteners' element={<NaturalSweeteners/>}/>
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </>
+  );
+}
+
+export default App;
