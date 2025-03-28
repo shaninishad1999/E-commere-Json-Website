@@ -11,6 +11,7 @@ const ProductDisplay = () => {
   const { id } = useParams(); // Get Product ID from URL
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.mycart.cart); // Get cart state
+  const [loading, setLoading] = useState(false);
 
   const [product, setProduct] = useState(null);
   const [selectedSize, setSelectedSize] = useState(""); // State for size selection
@@ -39,18 +40,44 @@ const ProductDisplay = () => {
 
   const cartItem = cart.find((item) => item.id === product.id);
 
+  // const handleAddToCart = () => {
+  //   if (product.Product_Quantity > 0) {
+  //     dispatch(
+  //       addtoCart({
+  //         id: product.id,
+  //         name: product.title,
+  //         category: product.category,
+  //         price: product.price,
+  //         image: product.img,
+  //         quantity: 1,
+  //       })
+  //     );
+  //   }
+  // };
+
   const handleAddToCart = () => {
     if (product.Product_Quantity > 0) {
-      dispatch(
-        addtoCart({
-          id: product.id,
-          name: product.title,
-          category: product.category,
-          price: product.price,
-          image: product.img,
-          quantity: 1,
-        })
-      );
+      setLoading(true);
+      setTimeout(() => {
+        const cartItem = cart.find((item) => item.id === product.id);
+
+        if (cartItem) {
+          dispatch(increaseQuantity(product.id)); // Increase quantity if already in cart
+        } else {
+          dispatch(
+            addtoCart({
+              id: product.id,
+              name: product.title,
+              category: product.category,
+              price: product.price,
+              image: product.img,
+              quantity: 1,
+            })
+          );
+        }
+
+        setLoading(false);
+      }, 500);
     }
   };
 
@@ -118,52 +145,57 @@ const ProductDisplay = () => {
 
           {/* Quantity Counter */}
           <h6>Quantity</h6>
-          <div className="d-flex justify-content-between mt-auto">
-            {product.Product_Quantity > 0 ? (
-              cartItem ? (
-                <div className="d-flex align-items-center">
-                  <Button
-                    variant="outline-danger"
-                    size="sm"
-                    onClick={() => dispatch(decreaseQuantity(product.id))}
-                    className="me-2"
-                  >
-                    <AiOutlineMinus />
-                  </Button>
-                  <span className="fw-bold">{cartItem.quantity}</span>
-                  <Button
-                    variant="outline-success"
-                    size="sm"
-                    onClick={() => dispatch(increaseQuantity(product.id))}
-                    className="ms-2"
-                  >
-                    <AiOutlinePlus />
-                  </Button>
-                </div>
-              ) : (
-                <Button
-                  variant="outline-success"
-                  size="sm"
-                  onClick={handleAddToCart}
-                >
-                  <BsCartPlus />
-                </Button>
-              )
-            ) : (
-              <Button variant="secondary" size="sm" disabled>
-                Out of Stock
-              </Button>
-            )}
-            <div cl>
+          <div className="d-flex align-items-center mb-4">
             <Button
-              variant="warning"
+              variant="outline-danger"
               size="sm"
-              className="w-100"
+              onClick={() => dispatch(decreaseQuantity(product.id))}
+              className="me-2"
+              disabled={!cartItem} // Agar cart mein nahi hai toh disable
+            >
+              <AiOutlineMinus />
+            </Button>
+
+            <span className="fw-bold">{cartItem ? cartItem.quantity : 0}</span>
+
+            <Button
+              variant="outline-success"
+              size="sm"
+              onClick={() => dispatch(increaseQuantity(product.id))}
+              className="ms-2"
+            >
+              <AiOutlinePlus />
+            </Button>
+          </div>
+          {/* Add to Cart Button */}
+          <div className="mb-2">
+            <Button
+              variant="outline-success"
+              size="sm"
+              className="w-96"
+              onClick={handleAddToCart}
+              disabled={loading || product.Product_Quantity === 0}
+            >
+              {loading ? (
+                <>
+                  <span className="spinner-border spinner-border-sm me-2"></span>{" "}
+                  Adding...
+                </>
+              ) : (
+                "Add to Cart"
+              )}
+            </Button>
+          </div>
+          {/* Buy Now Button */}
+          <div>
+            <Button
+              variant="success"
+              size="sm"
+              className="w-96"
               disabled={product.Product_Quantity === 0}
             >
               Buy Now
             </Button>
-            </div>
           </div>
         </Col>
       </Row>
