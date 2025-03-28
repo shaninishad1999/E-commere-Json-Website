@@ -28,11 +28,18 @@ const CustomNavbar = ({ onLoginClick }) => {
               <Nav.Link as={Link} to="/shop" className="text-dark">Shop</Nav.Link>
               
               <NavDropdown title="Categories" id="navbarScrollingDropdown">
-                <NavDropdown.Item as={Link} to="/categories/grains">Grains & Pulses</NavDropdown.Item>
-                <NavDropdown.Item as={Link} to="/categories/spices">Organic Spices</NavDropdown.Item>
-                <NavDropdown.Item as={Link} to="/categories/dryfruits">Dry Fruits</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/category/beverages">Beverages</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/category/superfoods">Superfoods</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/category/grainsrice">GrainsRice</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/category/nutsdryfruits">Nuts & Dry Fruits</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/category/personalcare">Personal Care</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/category/spreadsbutters">Spreads Butters</NavDropdown.Item>
+               
+                <NavDropdown.Item as={Link} to="/category/fruits">Fruits</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/category/oils">Oils</NavDropdown.Item>
                 <NavDropdown.Divider />
-                <NavDropdown.Item as={Link} to="/categories/snacks">Healthy Snacks</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/category/naturalsweeteners">Natural Sweeteners</NavDropdown.Item>
+                
               </NavDropdown>
               
               <Nav.Link as={Link} to="/about" className="text-dark">About Us</Nav.Link>

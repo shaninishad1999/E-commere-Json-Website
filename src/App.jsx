@@ -8,14 +8,20 @@ import About from './components/About';
 import { Toaster } from "react-hot-toast";
 import CartData from './pages/CartData';
 import Beverages from './prodcutCategory/Beverages';
-import Fruits from './prodcutCategory/Fruits';
-import GrainsRice from './prodcutCategory/GrainsRice';
 import NaturalSweeteners from './prodcutCategory/NaturalSweeteners';
 import Product from './components/Product';
 import CustomNavbar from './components/CustomNavbar';
 import LoginForm from './pages/LoginForm';
 import SignupForm from './pages/SignupForm';
 import AuthModal from './auth/AuthModal';
+import ProductDisplay from './pages/ProductDisplay';
+import Superfoods from './prodcutCategory/Superfoods';
+import Fruits from './prodcutCategory/Fruits';
+import Oils from './prodcutCategory/Oils';
+import GrainsRice from './prodcutCategory/GrainsRice';
+import NutsDryFruits from './prodcutCategory/NutsDryFruits';
+import PersonalCare from './prodcutCategory/PersonalCare';
+import SpreadsButters from './prodcutCategory/SpreadsButters';
 
 
 
@@ -48,13 +54,20 @@ const App = () => {
             <Route path='/about' element={<About/>}/>
             <Route path='/cartdata' element={<CartData/>}/>
             <Route path='/shop' element={<Product/>}/>
+            <Route path='/productdisplay/:id' element={<ProductDisplay/>}/>
 
             
             {/* Category Routes */}
             {/* <Route path='/category' element={<C/>}/> */}
             <Route path='/category/beverages' element={<Beverages/>}/>
-            <Route path='/category/fruits' element={<Fruits/>}/>
+            <Route path='/category/superfoods' element={<Superfoods/>}/>
             <Route path='/category/grainsrice' element={<GrainsRice/>}/>
+            <Route path='/category/nutsdryfruits' element={<NutsDryFruits/>}/>
+            <Route path='/category/personalcare' element={<PersonalCare/>}/>
+            <Route path='/category/spreadsbutters' element={<SpreadsButters/>}/>
+           
+            <Route path='/category/fruits' element={<Fruits/>}/>
+            <Route path='/category/oils' element={<Oils/>}/>
             <Route path='/category/naturalsweeteners' element={<NaturalSweeteners/>}/>
           </Route>
         </Routes>

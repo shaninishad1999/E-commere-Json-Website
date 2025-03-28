@@ -10,11 +10,13 @@ import styles from "../styles/Product.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { addtoCart, increaseQuantity, decreaseQuantity } from "../cartSlice";
 import toast from "react-hot-toast"; // ✅ Import toast
+import { useNavigate } from "react-router-dom";
 
 const Product = () => {
   const [products, setProducts] = useState([]);
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.mycart.cart); // Get cart state
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch("http://localhost:3000/products")
@@ -37,6 +39,9 @@ const Product = () => {
       );
     }
   };
+  const proDisplay = (product) => {
+    navigate(`/productdisplay/${product.id}`, { state: { product } });
+  };
 
   return (
     <Container className="py-5">
@@ -49,9 +54,10 @@ const Product = () => {
               <Card className={`${styles.card} h-100 shadow-sm`}>
                 <div className="position-relative">
                   <Card.Img
+                    onClick={() => proDisplay(product)} // ✅ Pass full product data
                     variant="top"
                     src={product.img}
-                    className="rounded-top object-fit-cover"
+                    className="rounded-top object-fit-cover cursor-pointer"
                     style={{ height: "250px" }}
                   />
                 </div>
