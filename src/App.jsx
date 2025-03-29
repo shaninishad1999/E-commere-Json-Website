@@ -22,6 +22,9 @@ import GrainsRice from './prodcutCategory/GrainsRice';
 import NutsDryFruits from './prodcutCategory/NutsDryFruits';
 import PersonalCare from './prodcutCategory/PersonalCare';
 import SpreadsButters from './prodcutCategory/SpreadsButters';
+import ProductSearch from './pages/ProductSearch';
+import Checkout from './pages/Checkout';
+import Orders from './pages/Orders';
 
 
 
@@ -55,6 +58,9 @@ const App = () => {
             <Route path='/cartdata' element={<CartData/>}/>
             <Route path='/shop' element={<Product/>}/>
             <Route path='/productdisplay/:id' element={<ProductDisplay/>}/>
+            <Route path='/productsearch' element={<ProductSearch/>}/>
+            <Route path='/checkout' element={<Checkout/>}/>
+            <Route path='/orders' element={<Orders/>}/>
 
             
             {/* Category Routes */}

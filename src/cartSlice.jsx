@@ -61,9 +61,16 @@ const cartSlice = createSlice({
           });
         }
       }
-    }
-  }
+    },
+    clearCart: (state) => {
+      state.cart = [];
+      toast.success("Cart has been cleared!");
+    },
+  },
+    
+  
 });
 
-export const { addtoCart, increaseQuantity, decreaseQuantity } = cartSlice.actions;
+export const { addtoCart, increaseQuantity, decreaseQuantity, clearCart } = cartSlice.actions;
+
 export default cartSlice.reducer;

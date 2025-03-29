@@ -6,11 +6,12 @@ import Button from "react-bootstrap/Button";
 import styles from "../styles/Cart.module.css";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 import { increaseQuantity, decreaseQuantity } from "../cartSlice";
+import { Link, useNavigate } from "react-router-dom";
 
 const CartData = () => {
   const proData = useSelector((state) => state.mycart.cart);
   const dispatch = useDispatch();
-
+ const navigate=useNavigate();
   // Calculate total cart price
   const totalCartPrice = proData.reduce(
     (total, product) => total + (product.totalPrice || 0),
@@ -25,14 +26,23 @@ const CartData = () => {
 
   // Handle Checkout
   const handleCheckout = () => {
-    alert(
-      `Total Items: ${totalItems} \nTotal Amount: $${totalCartPrice.toFixed(2)}`
-    );
+    // alert(
+    //   `Total Items: ${totalItems} \nTotal Amount: $${totalCartPrice.toFixed(2)}`
+    // );
+    navigate("/checkout")
   };
 
   return (
     <Container className="py-5">
       <h2 className="text-center text-success mb-4">🛒 My Shopping Cart</h2>
+      <Button
+      as={Link}
+      to="/orders"
+      variant="success"
+      className="position-relative mb-4"
+      >
+      Go to  Order Section
+      </Button>
       {proData.length > 0 ? (
         <div className="table-responsive">
           <Table
