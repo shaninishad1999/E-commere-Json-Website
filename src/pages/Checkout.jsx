@@ -16,7 +16,7 @@ const Checkout = () => {
     address: "",
     city: "",
     zip: "",
-    paymentMethod: "card",
+    paymentMethod: "cod",
   });
 
   const handleChange = (e) => {

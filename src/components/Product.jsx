@@ -10,7 +10,7 @@ import styles from "../styles/Product.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { addtoCart, increaseQuantity, decreaseQuantity } from "../cartSlice";
 import toast from "react-hot-toast"; // ✅ Import toast
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Product = () => {
   const [products, setProducts] = useState([]);
@@ -150,6 +150,8 @@ const Product = () => {
                     )}
 
                     <Button
+                     as={Link}
+                  to="/checkout"
                       variant="success"
                       size="sm"
                       disabled={product.Product_Quantity === 0}

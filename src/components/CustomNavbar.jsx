@@ -82,13 +82,15 @@ const CustomNavbar = ({ onLoginClick }) => {
 
             {/* Search Bar */}
             <Form className="d-flex me-3">
-              <Form.Control
-                type="search"
-                placeholder="Search organic products..."
-                className="me-2"
-                aria-label="Search"
-              />
-              <Button variant="outline-success">Search</Button>
+             
+            <Button
+                  as={Link}
+                  to="/productsearch"
+                  variant="success"
+                  className="position-relative"
+                >
+                  Search
+                </Button>
             </Form>
 
             {/* Login and Cart Buttons */}

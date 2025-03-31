@@ -62,7 +62,7 @@ const ProductSearch = () => {
           placeholder="Search products..."
           className="form-control me-2"
         />
-        <Button variant="primary">Search</Button>
+        <Button   variant="success">Search</Button>
       </div>
       
       <Row className="g-4">
