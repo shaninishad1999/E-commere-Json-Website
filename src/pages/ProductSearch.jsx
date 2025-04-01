@@ -21,7 +21,7 @@ const ProductSearch = () => {
   const [textval, setTextVal] = useState("");
 
   useEffect(() => {
-    fetch("http://localhost:3000/products")
+    fetch("https://e-commerce-json-data-ommh.onrender.com/products")
       .then((res) => res.json())
       .then((data) => {
         setProducts(data);

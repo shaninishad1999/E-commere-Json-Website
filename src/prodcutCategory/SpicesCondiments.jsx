@@ -19,7 +19,7 @@ const SpicesCondiments = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://localhost:3000/products/?category=SpicesCondiments")
+    fetch("https://e-commerce-json-data-ommh.onrender.com/products/?category=SpicesCondiments")
       .then((res) => res.json())
       .then((data) => setProducts(data))
       .catch((error) => console.error("Error fetching products:", error));
