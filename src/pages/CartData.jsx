@@ -68,7 +68,8 @@ const CartData = () => {
                   <td className="fw-bold">{index + 1}</td>
                   <td>
                     <img
-                      src={product.image}
+                    src={`https://e-commerce-json-data-ommh.onrender.com${product.image}`} // Prepend the base URL
+
                       alt={product.name}
                       className={`${styles.productImage} img-fluid`}
                       style={{ maxWidth: "50px", height: "auto" }}

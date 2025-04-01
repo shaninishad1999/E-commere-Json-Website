@@ -87,7 +87,7 @@ const ProductDisplay = () => {
         {/* Left - Product Image */}
         <Col md={5} className="text-center">
           <img
-            src={product.img}
+            src={`https://e-commerce-json-data-ommh.onrender.com${product.img}`} // Prepend the base URL
             alt={product.title}
             className="img-fluid rounded shadow"
             style={{ maxHeight: "450px" }}

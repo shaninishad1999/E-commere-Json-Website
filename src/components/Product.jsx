@@ -21,7 +21,10 @@ const Product = () => {
   useEffect(() => {
     fetch("https://e-commerce-json-data-ommh.onrender.com/products")
       .then((res) => res.json())
-      .then((data) => setProducts(data))
+      .then((data) => {
+        console.log(data); // Log the API response to verify image URLs
+        setProducts(data);
+      })
       .catch((error) => console.error("Error fetching products:", error));
   }, []);
 
@@ -54,9 +57,9 @@ const Product = () => {
               <Card className={`${styles.card} h-100 shadow-sm`}>
                 <div className="position-relative">
                   <Card.Img
-                    onClick={() => proDisplay(product)} // ✅ Pass full product data
+                    onClick={() => proDisplay(product)}
                     variant="top"
-                    src={product.img}
+                    src={`https://e-commerce-json-data-ommh.onrender.com${product.img}`} // Prepend the base URL
                     className="rounded-top object-fit-cover cursor-pointer"
                     style={{ height: "250px" }}
                   />
@@ -150,8 +153,8 @@ const Product = () => {
                     )}
 
                     <Button
-                     as={Link}
-                  to="/checkout"
+                      as={Link}
+                      to="/checkout"
                       variant="success"
                       size="sm"
                       disabled={product.Product_Quantity === 0}
