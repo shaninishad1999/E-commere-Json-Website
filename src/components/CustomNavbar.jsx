@@ -33,9 +33,7 @@ const CustomNavbar = ({ onLoginClick }) => {
           <Navbar.Collapse id="navbarScroll">
             {/* Navigation Links */}
             <Nav className="me-auto">
-              <Nav.Link as={Link} to="/" className="text-dark">
-                Home
-              </Nav.Link>
+              
               <Nav.Link as={Link} to="/shop" className="text-dark">
                 Shop
               </Nav.Link>

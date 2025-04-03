@@ -12,85 +12,86 @@ import CertificationLogos from "../components/CertificationLogos";
 import TestimonialsSection from "../components/TestimonialsSection";
 import ProductFAQs from "../components/ProductFAQs";
 
-
-
-
-
-
 const Home = () => {
   return (
-    <div>
-      <Carousel>
-        <Carousel.Item>
-          <img
-            src={Img1}
-            alt="Fresh Organic Vegetables"
-            height="650px"
-            width="100%"
-          />
-          <Carousel.Caption className="text-black">
-            <h3 className="font-bold">Fresh Organic Vegetables</h3>
-            <p>
-              Experience the best farm-fresh organic produce for a healthier
-              lifestyle.
-            </p>
-          </Carousel.Caption>
-        </Carousel.Item>
-
-        <Carousel.Item>
-          <img
-            src={Img2}
-            alt="Healthy Grains & Pulses"
-            height="650px"
-            width="100%"
-          />
-          <Carousel.Caption>
-            <h3>Healthy Grains & Pulses</h3>
-            <p>High-quality organic grains packed with nutrition and taste.</p>
-          </Carousel.Caption>
-        </Carousel.Item>
-
-        <Carousel.Item>
-          <img
-            src={Img3}
-            alt="Organic Spices & Herbs"
-            height="650px"
-            width="100%"
-          />
-          <Carousel.Caption className="text-black">
-            <h3 className="font-bold">Organic Spices & Herbs</h3>
-            <p>Pure and aromatic spices sourced naturally for your kitchen.</p>
-          </Carousel.Caption>
-        </Carousel.Item>
-
-        <Carousel.Item>
-          <img src={Img4} alt="Dry Fruits & Nuts" height="650px" width="100%" />
-          <Carousel.Caption>
-            <h3>Dry Fruits & Nuts</h3>
-            <p>A healthy mix of premium quality organic dry fruits and nuts.</p>
-          </Carousel.Caption>
-        </Carousel.Item>
-
-        <Carousel.Item>
-          <img
-            src={Img5}
-            alt="Healthy Snacks & Beverages"
-            height="700px"
-            width="100%"
-          />
-          <Carousel.Caption>
-            <h3>Healthy Snacks & Beverages</h3>
-            <p>Enjoy delicious and nutritious organic snacks and drinks.</p>
-          </Carousel.Caption>
-        </Carousel.Item>
-      </Carousel>
-
+    <>
+      <div className="carousel-container">
+        <Carousel fade>
+          <Carousel.Item>
+            <div className="carousel-item-inner">
+              <img
+                className="d-block w-100"
+                src={Img1}
+                alt="Fresh Organic Vegetables"
+              />
+              <Carousel.Caption>
+                <h3>Fresh Organic Vegetables</h3>
+                <p>Experience the best farm-fresh organic produce for a healthier lifestyle.</p>
+              </Carousel.Caption>
+            </div>
+          </Carousel.Item>
+          <Carousel.Item>
+            <div className="carousel-item-inner">
+              <img
+                className="d-block w-100"
+                src={Img2}
+                alt="Healthy Grains & Pulses"
+              />
+              <Carousel.Caption>
+                <h3>Healthy Grains & Pulses</h3>
+                <p>High-quality organic grains packed with nutrition and taste.</p>
+              </Carousel.Caption>
+            </div>
+          </Carousel.Item>
+          <Carousel.Item>
+            <div className="carousel-item-inner">
+              <img
+                className="d-block w-100"
+                src={Img3}
+                alt="Organic Spices & Herbs"
+              />
+              <Carousel.Caption>
+                <h3>Organic Spices & Herbs</h3>
+                <p>Pure and aromatic spices sourced naturally for your kitchen.</p>
+              </Carousel.Caption>
+            </div>
+          </Carousel.Item>
+          <Carousel.Item>
+            <div className="carousel-item-inner">
+              <img
+                className="d-block w-100"
+                src={Img4}
+                alt="Dry Fruits & Nuts"
+              />
+              <Carousel.Caption>
+                <h3>Dry Fruits & Nuts</h3>
+                <p>A healthy mix of premium quality organic dry fruits and nuts.</p>
+              </Carousel.Caption>
+            </div>
+          </Carousel.Item>
+          <Carousel.Item>
+            <div className="carousel-item-inner">
+              <img
+                className="d-block w-100"
+                src={Img5}
+                alt="Healthy Snacks & Beverages"
+              />
+              <Carousel.Caption>
+                <h3>Healthy Snacks & Beverages</h3>
+                <p>Enjoy delicious and nutritious organic snacks and drinks.</p>
+              </Carousel.Caption>
+            </div>
+          </Carousel.Item>
+        </Carousel>
+      </div>
+      
+      {/* Your other components would go here */}
       <Banner />
       <Product />
       <CertificationLogos />
       <TestimonialsSection />
       <ProductFAQs />
-    </div>
+    </>
   );
 };
 

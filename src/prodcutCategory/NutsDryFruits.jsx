@@ -56,7 +56,7 @@ const NutsDryFruits = () => {
                   <Card.Img
                     onClick={() => proDisplay(product)} // ✅ Pass full product data
                     variant="top"
-                    src={product.img}
+                    src={`https://e-commerce-json-data-ommh.onrender.com${product.img}`}
                     className="rounded-top object-fit-cover cursor-pointer"
                     style={{ height: "250px" }}
                   />

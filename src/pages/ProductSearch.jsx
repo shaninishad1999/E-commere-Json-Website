@@ -74,7 +74,7 @@ const ProductSearch = () => {
                 <Card.Img
                   onClick={() => proDisplay(product)}
                   variant="top"
-                  src={product.img}
+                  src={`https://e-commerce-json-data-ommh.onrender.com${product.img}`}
                   className="rounded-top object-fit-cover cursor-pointer"
                   style={{ height: "250px" }}
                 />
