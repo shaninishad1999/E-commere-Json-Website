@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Layout from './Layout';
 import Home from './pages/Home';
@@ -25,61 +25,55 @@ import SpreadsButters from './prodcutCategory/SpreadsButters';
 import ProductSearch from './pages/ProductSearch';
 import Checkout from './pages/Checkout';
 import Orders from './pages/Orders';
+import { AnimatePresence } from 'framer-motion';
 
-
-
-const App = () => {
+const AppContent = () => {
   const [showAuthModal, setShowAuthModal] = useState(false);
+  const location = useLocation();
 
-  const openLoginModal = () => {
-    setShowAuthModal(true);
-  };
-
-  const closeAuthModal = () => {
-    setShowAuthModal(false);
-  };
-
-
+  const openLoginModal = () => setShowAuthModal(true);
+  const closeAuthModal = () => setShowAuthModal(false);
 
   return (
     <>
-     
-      <BrowserRouter>
-      <CustomNavbar onLoginClick={openLoginModal}/>
+      <CustomNavbar onLoginClick={openLoginModal} />
       {showAuthModal && <AuthModal onClose={closeAuthModal} />}
-        <Toaster /> 
-        <Routes>
-          <Route path='/' element={<Layout/>}>
-            <Route index element={<Home/>}/>
-            <Route path='/login' element={<LoginForm/>}/>
-            <Route path="/signup" element={<SignupForm/>} />
-            <Route path='/contact' element={<Contact/>}/>
-            <Route path='/about' element={<About/>}/>
-            <Route path='/cartdata' element={<CartData/>}/>
-            <Route path='/shop' element={<Product/>}/>
-            <Route path='/productdisplay/:id' element={<ProductDisplay/>}/>
-            <Route path='/productsearch' element={<ProductSearch/>}/>
-            <Route path='/checkout' element={<Checkout/>}/>
-            <Route path='/orders' element={<Orders/>}/>
-
-            
-            {/* Category Routes */}
-            {/* <Route path='/category' element={<C/>}/> */}
-            <Route path='/category/beverages' element={<Beverages/>}/>
-            <Route path='/category/superfoods' element={<Superfoods/>}/>
-            <Route path='/category/grainsrice' element={<GrainsRice/>}/>
-            <Route path='/category/nutsdryfruits' element={<NutsDryFruits/>}/>
-            <Route path='/category/personalcare' element={<PersonalCare/>}/>
-            <Route path='/category/spreadsbutters' element={<SpreadsButters/>}/>
-           
-            <Route path='/category/fruits' element={<Fruits/>}/>
-            <Route path='/category/oils' element={<Oils/>}/>
-            <Route path='/category/naturalsweeteners' element={<NaturalSweeteners/>}/>
+      <Toaster />
+      
+      <AnimatePresence mode="wait">
+        <Routes location={location} key={location.pathname}>
+          <Route path='/' element={<Layout />}>
+            <Route index element={<Home />} />
+            <Route path='/login' element={<LoginForm />} />
+            <Route path="/signup" element={<SignupForm />} />
+            <Route path='/contact' element={<Contact />} />
+            <Route path='/about' element={<About />} />
+            <Route path='/cartdata' element={<CartData />} />
+            <Route path='/shop' element={<Product />} />
+            <Route path='/productdisplay/:id' element={<ProductDisplay />} />
+            <Route path='/productsearch' element={<ProductSearch />} />
+            <Route path='/checkout' element={<Checkout />} />
+            <Route path='/orders' element={<Orders />} />
+            <Route path='/category/beverages' element={<Beverages />} />
+            <Route path='/category/superfoods' element={<Superfoods />} />
+            <Route path='/category/grainsrice' element={<GrainsRice />} />
+            <Route path='/category/nutsdryfruits' element={<NutsDryFruits />} />
+            <Route path='/category/personalcare' element={<PersonalCare />} />
+            <Route path='/category/spreadsbutters' element={<SpreadsButters />} />
+            <Route path='/category/fruits' element={<Fruits />} />
+            <Route path='/category/oils' element={<Oils />} />
+            <Route path='/category/naturalsweeteners' element={<NaturalSweeteners />} />
           </Route>
         </Routes>
-      </BrowserRouter>
+      </AnimatePresence>
     </>
   );
-}
+};
+
+const App = () => (
+  <BrowserRouter>
+    <AppContent />
+  </BrowserRouter>
+);
 
 export default App;

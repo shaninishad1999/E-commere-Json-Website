@@ -50,12 +50,14 @@ const CountdownTimer = () => {
         {Object.entries(timeLeft).map(([unit, value]) => (
           <div 
             key={unit} 
-            className="bg-white bg-opacity-20 p-4 rounded-lg text-center min-w-[80px] sm:min-w-[100px] shadow-lg"
+            className="bg-white bg-opacity-20 p-4 rounded-lg text-center min-w-[80px] sm:min-w-[100px] md:min-w-[120px] lg:min-w-[140px] shadow-lg"
           >
-            <span className="block text-3xl sm:text-4xl font-bold text-black">
+            <span className="block text-3xl sm:text-4xl lg:text-5xl font-bold text-black">
               {value.toString().padStart(2, '0')}
             </span>
-            <span className="text-xs sm:text-sm uppercase text-black text-opacity-80">{unit}</span>
+            <span className="text-xs sm:text-sm lg:text-base uppercase text-black text-opacity-80">
+              {unit}
+            </span>
           </div>
         ))}
       </div>

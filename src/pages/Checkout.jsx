@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { placeOrder } from "../orderSlice";
 import { clearCart } from "../cartSlice";
 import { useNavigate } from "react-router-dom"; // Import useNavigate for navigation
-
+import { motion } from 'framer-motion';
 const Checkout = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate(); // Initialize navigate function
@@ -50,6 +50,12 @@ const Checkout = () => {
   };
 
   return (
+    <motion.div
+    initial={{ opacity: 0, y: 30 }}
+    animate={{ opacity: 1, y: 0 }}
+    exit={{ opacity: 0, y: -30 }}
+    transition={{ duration: 0.4 }}
+  >
     <Container className="py-5">
       <h2 className="text-center mb-4">Checkout</h2>
       <Row>
@@ -137,6 +143,7 @@ const Checkout = () => {
         </Modal.Footer>
       </Modal>
     </Container>
+    </motion.div>
   );
 };
 

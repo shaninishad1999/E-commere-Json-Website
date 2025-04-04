@@ -1,11 +1,17 @@
 import React from "react";
 import { Container, Table, Card, Image } from "react-bootstrap";
 import { useSelector } from "react-redux";
-
+import { motion } from 'framer-motion';
 const Orders = () => {
   const orders = useSelector((state) => state.orders.orders); // Fetch orders from Redux
 
   return (
+    <motion.div
+    initial={{ opacity: 0, y: 30 }}
+    animate={{ opacity: 1, y: 0 }}
+    exit={{ opacity: 0, y: -30 }}
+    transition={{ duration: 0.4 }}
+  >
     <Container className="py-5">
       <h2 className="text-center mb-4">My Orders</h2>
       {orders.length === 0 ? (
@@ -52,6 +58,7 @@ const Orders = () => {
         ))
       )}
     </Container>
+    </motion.div>
   );
 };
 

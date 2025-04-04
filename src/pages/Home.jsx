@@ -15,7 +15,7 @@ import ProductFAQs from "../components/ProductFAQs";
 const Home = () => {
   return (
     <>
-      <div className="carousel-container">
+      <div className="carousel-container mt-10">
         <Carousel fade>
           <Carousel.Item>
             <div className="carousel-item-inner">
@@ -23,11 +23,10 @@ const Home = () => {
                 className="d-block w-100"
                 src={Img1}
                 alt="Fresh Organic Vegetables"
+              
+             
               />
-              <Carousel.Caption>
-                <h3>Fresh Organic Vegetables</h3>
-                <p>Experience the best farm-fresh organic produce for a healthier lifestyle.</p>
-              </Carousel.Caption>
+             
             </div>
           </Carousel.Item>
           <Carousel.Item>
@@ -36,11 +35,9 @@ const Home = () => {
                 className="d-block w-100"
                 src={Img2}
                 alt="Healthy Grains & Pulses"
+               
               />
-              <Carousel.Caption>
-                <h3>Healthy Grains & Pulses</h3>
-                <p>High-quality organic grains packed with nutrition and taste.</p>
-              </Carousel.Caption>
+          
             </div>
           </Carousel.Item>
           <Carousel.Item>
@@ -49,11 +46,9 @@ const Home = () => {
                 className="d-block w-100"
                 src={Img3}
                 alt="Organic Spices & Herbs"
+              
               />
-              <Carousel.Caption>
-                <h3>Organic Spices & Herbs</h3>
-                <p>Pure and aromatic spices sourced naturally for your kitchen.</p>
-              </Carousel.Caption>
+            
             </div>
           </Carousel.Item>
           <Carousel.Item>
@@ -62,11 +57,9 @@ const Home = () => {
                 className="d-block w-100"
                 src={Img4}
                 alt="Dry Fruits & Nuts"
+               
               />
-              <Carousel.Caption>
-                <h3>Dry Fruits & Nuts</h3>
-                <p>A healthy mix of premium quality organic dry fruits and nuts.</p>
-              </Carousel.Caption>
+             
             </div>
           </Carousel.Item>
           <Carousel.Item>
@@ -75,11 +68,9 @@ const Home = () => {
                 className="d-block w-100"
                 src={Img5}
                 alt="Healthy Snacks & Beverages"
+               
               />
-              <Carousel.Caption>
-                <h3>Healthy Snacks & Beverages</h3>
-                <p>Enjoy delicious and nutritious organic snacks and drinks.</p>
-              </Carousel.Caption>
+             
             </div>
           </Carousel.Item>
         </Carousel>

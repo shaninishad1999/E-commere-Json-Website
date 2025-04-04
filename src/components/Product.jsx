@@ -9,20 +9,31 @@ import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 import styles from "../styles/Product.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { addtoCart, increaseQuantity, decreaseQuantity } from "../cartSlice";
-import toast from "react-hot-toast"; // ✅ Import toast
+import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
+
+// AOS animation
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const Product = () => {
   const [products, setProducts] = useState([]);
   const dispatch = useDispatch();
-  const cart = useSelector((state) => state.mycart.cart); // Get cart state
+  const cart = useSelector((state) => state.mycart.cart);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    AOS.init({
+      duration: 1000,
+      once: true,
+    });
+  }, []);
 
   useEffect(() => {
     fetch("https://e-commerce-json-data-ommh.onrender.com/products")
       .then((res) => res.json())
       .then((data) => {
-        console.log(data); // Log the API response to verify image URLs
+        console.log(data);
         setProducts(data);
       })
       .catch((error) => console.error("Error fetching products:", error));
@@ -40,8 +51,10 @@ const Product = () => {
           quantity: product.quantity,
         })
       );
+      toast.success("Added to Cart!");
     }
   };
+
   const proDisplay = (product) => {
     navigate(`/productdisplay/${product.id}`, { state: { product } });
   };
@@ -54,12 +67,15 @@ const Product = () => {
           const cartItem = cart.find((item) => item.id === product.id);
           return (
             <Col key={product.id} xs={12} sm={6} md={4} lg={3}>
-              <Card className={`${styles.card} h-100 shadow-sm`}>
+              <Card
+                className={`${styles.card} h-100 shadow-sm`}
+                data-aos="fade-up"
+              >
                 <div className="position-relative">
                   <Card.Img
                     onClick={() => proDisplay(product)}
                     variant="top"
-                    src={`https://e-commerce-json-data-ommh.onrender.com${product.img}`} // Prepend the base URL
+                    src={`https://e-commerce-json-data-ommh.onrender.com${product.img}`}
                     className="rounded-top object-fit-cover cursor-pointer"
                     style={{ height: "250px" }}
                   />
@@ -74,14 +90,17 @@ const Product = () => {
                       <span className="fw-bold">{product.rating}</span>
                     </div>
                   </div>
+
                   <Card.Text className="text-muted mb-2 flex-grow-1">
                     {product.description}
                   </Card.Text>
+
                   {product.Product_Quantity > 0 ? (
                     <span className="text-success fw-bold">In Stock</span>
                   ) : (
                     <span className="text-danger fw-bold">Out of Stock</span>
                   )}
+
                   <td>
                     {product.discount && (
                       <span className="badge bg-danger text-white fw-bold px-2 py-1">

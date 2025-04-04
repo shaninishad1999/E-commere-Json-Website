@@ -1,7 +1,14 @@
 import React from "react";
+import { motion } from 'framer-motion';
 
 const About = () => {
   return (
+    <motion.div
+    initial={{ opacity: 0, y: 30 }}
+    animate={{ opacity: 1, y: 0 }}
+    exit={{ opacity: 0, y: -30 }}
+    transition={{ duration: 0.4 }}
+  >
     <div className="bg-gray-100">
       <div className="max-w-7xl mx-auto flex flex-col justify-center">
         {/* Hero Section */}
@@ -95,6 +102,7 @@ const About = () => {
         </section>
       </div>
     </div>
+    </motion.div>
   );
 };
 

@@ -1,8 +1,15 @@
 import React from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import { motion } from 'framer-motion';
 
 const Contact = () => {
   return (
+    <motion.div
+    initial={{ opacity: 0, y: 30 }}
+    animate={{ opacity: 1, y: 0 }}
+    exit={{ opacity: 0, y: -30 }}
+    transition={{ duration: 0.4 }}
+  >
     <section className="py-5">
       <Container>
         <h2 className="text-center fw-bold mb-4">Contact Us</h2>
@@ -59,6 +66,7 @@ const Contact = () => {
         </Row> */}
       </Container>
     </section>
+    </motion.div>
   );
 };
 

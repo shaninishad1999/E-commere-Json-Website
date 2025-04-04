@@ -6,7 +6,7 @@ import { BsCartPlus } from "react-icons/bs";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { addtoCart, increaseQuantity, decreaseQuantity } from "../cartSlice";
-
+import { motion } from 'framer-motion';
 const ProductDisplay = () => {
   const { id } = useParams(); // Get Product ID from URL
   const dispatch = useDispatch();
@@ -82,6 +82,12 @@ const ProductDisplay = () => {
   };
 
   return (
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -30 }}
+        transition={{ duration: 0.4 }}
+      >
     <Container className="py-5">
       <Row className="justify-content-center">
         {/* Left - Product Image */}
@@ -200,6 +206,7 @@ const ProductDisplay = () => {
         </Col>
       </Row>
     </Container>
+    </motion.div>
   );
 };
 

@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addtoCart, increaseQuantity, decreaseQuantity } from "../cartSlice";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-
+import { motion } from 'framer-motion';
 const ProductSearch = () => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
@@ -51,6 +51,12 @@ const ProductSearch = () => {
   };
 
   return (
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -30 }}
+      transition={{ duration: 0.4 }}
+    >
     <Container className="py-5">
       <h2 className="text-center text-success mb-4">Our Organic Products</h2>
       <div className="mb-4 d-flex">
@@ -113,6 +119,7 @@ const ProductSearch = () => {
         })}
       </Row>
     </Container>
+    </motion.div>
   );
 };
 

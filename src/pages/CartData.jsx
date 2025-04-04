@@ -7,7 +7,7 @@ import styles from "../styles/Cart.module.css";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 import { increaseQuantity, decreaseQuantity } from "../cartSlice";
 import { Link, useNavigate } from "react-router-dom";
-
+import { motion } from 'framer-motion';
 const CartData = () => {
   const proData = useSelector((state) => state.mycart.cart);
   const dispatch = useDispatch();
@@ -33,6 +33,12 @@ const CartData = () => {
   };
 
   return (
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -30 }}
+      transition={{ duration: 0.4 }}
+    >
     <Container className="py-5">
       <h2 className="text-center text-success mb-4">🛒 My Shopping Cart</h2>
       <Button
@@ -137,6 +143,7 @@ const CartData = () => {
         </div>
       )}
     </Container>
+    </motion.div>
   );
 };
 
