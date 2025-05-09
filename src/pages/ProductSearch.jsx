@@ -9,23 +9,34 @@ import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 import styles from "../styles/Product.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { addtoCart, increaseQuantity, decreaseQuantity } from "../cartSlice";
-import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
-import { motion } from 'framer-motion';
+import { Link, useNavigate } from "react-router-dom";
+
+// AOS animation
+import AOS from "aos";
+import "aos/dist/aos.css";
+
 const ProductSearch = () => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
+  const [textval, setTextVal] = useState("");
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.mycart.cart);
   const navigate = useNavigate();
-  const [textval, setTextVal] = useState("");
+
+  useEffect(() => {
+    AOS.init({
+      duration: 1000,
+      once: true,
+    });
+  }, []);
 
   useEffect(() => {
     fetch("https://e-commerce-json-data-ommh.onrender.com/products")
       .then((res) => res.json())
       .then((data) => {
+        console.log(data);
         setProducts(data);
-        setFilteredProducts(data);
+        setFilteredProducts(data); // Initialize filtered products with all products
       })
       .catch((error) => console.error("Error fetching products:", error));
   }, []);
@@ -42,7 +53,17 @@ const ProductSearch = () => {
 
   const handleAddToCart = (product) => {
     if (product.Product_Quantity > 0) {
-      dispatch(addtoCart(product));
+      dispatch(
+        addtoCart({
+          id: product.id,
+          name: product.title,
+          category: product.category,
+          price: product.price,
+          image: product.img,
+          quantity: product.quantity,
+        })
+      );
+      // toast.success("Added to Cart!");
     }
   };
 
@@ -51,14 +72,10 @@ const ProductSearch = () => {
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -30 }}
-      transition={{ duration: 0.4 }}
-    >
     <Container className="py-5">
       <h2 className="text-center text-success mb-4">Our Organic Products</h2>
+      
+      {/* Search functionality */}
       <div className="mb-4 d-flex">
         <input
           type="text"
@@ -68,49 +85,139 @@ const ProductSearch = () => {
           placeholder="Search products..."
           className="form-control me-2"
         />
-        <Button   variant="success">Search</Button>
+        <Button variant="success">Search</Button>
       </div>
       
       <Row className="g-4">
         {filteredProducts.map((product) => {
           const cartItem = cart.find((item) => item.id === product.id);
+          const isOutOfStock = product.Product_Quantity <= 0;
+          
           return (
             <Col key={product.id} xs={12} sm={6} md={4} lg={3}>
-              <Card className={`${styles.card} h-100 shadow-sm`}>
-                <Card.Img
-                  onClick={() => proDisplay(product)}
-                  variant="top"
-                  src={`https://e-commerce-json-data-ommh.onrender.com${product.img}`}
-                  className="rounded-top object-fit-cover cursor-pointer"
-                  style={{ height: "250px" }}
-                />
-                <Card.Body>
-                  <Card.Title className="text-truncate">{product.title}</Card.Title>
-                  <Card.Text className="text-muted">{product.description}</Card.Text>
-                  <span className={product.Product_Quantity > 0 ? "text-success" : "text-danger"}>
-                    {product.Product_Quantity > 0 ? "In Stock" : "Out of Stock"}
-                  </span>
-                  <div className="d-flex justify-content-between align-items-center mt-3">
-                    {product.Product_Quantity > 0 ? (
+              <Card
+                className={`${styles.card} h-100 shadow-sm`}
+                data-aos="fade-up"
+              >
+                <div className="position-relative">
+                  <Card.Img
+                    onClick={() => proDisplay(product)}
+                    variant="top"
+                    src={`https://e-commerce-json-data-ommh.onrender.com${product.img}`}
+                    className="rounded-top object-fit-cover cursor-pointer"
+                    style={{ height: "250px" }}
+                  />
+                </div>
+                <Card.Body className="d-flex flex-column">
+                  <div className="d-flex justify-content-between align-items-center">
+                    <Card.Title className="mb-0 text-truncate">
+                      {product.title}
+                    </Card.Title>
+                    <div className="d-flex align-items-center">
+                      <BsStarFill className="text-warning me-1" />
+                      <span className="fw-bold">{product.rating}</span>
+                    </div>
+                  </div>
+
+                  <Card.Text className="text-muted mb-2 flex-grow-1">
+                    {product.description}
+                  </Card.Text>
+
+                  {!isOutOfStock ? (
+                    <span className="text-success fw-bold">In Stock</span>
+                  ) : (
+                    <span className="text-danger fw-bold">Out of Stock</span>
+                  )}
+
+                  <td>
+                    {product.discount && (
+                      <span className="badge bg-danger text-white fw-bold px-2 py-1">
+                        {product.discount} off
+                      </span>
+                    )}
+                    {product.limited_time_deal && (
+                      <span className="text-danger fw-bold ms-2">
+                        Limited time deal
+                      </span>
+                    )}
+                  </td>
+
+                  <div className="d-flex justify-content-between align-items-center mb-3">
+                    <div>
+                      <span className="text-muted text-decoration-line-through me-2">
+                        {product.price}
+                      </span>
+                      <span className="text-success fw-bold">
+                        {product.sale_price}
+                      </span>
+                    </div>
+                    <div>
+                      <span className="text-success fw-bold">
+                        {product.quantity}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="d-flex justify-content-between mt-auto">
+                    {!isOutOfStock ? (
                       cartItem ? (
                         <div className="d-flex align-items-center">
-                          <Button variant="outline-danger" size="sm" onClick={() => dispatch(decreaseQuantity(product.id))}>
+                          <Button
+                            variant="outline-danger"
+                            size="sm"
+                            onClick={() =>
+                              dispatch(decreaseQuantity(product.id))
+                            }
+                            className="me-2"
+                          >
                             <AiOutlineMinus />
                           </Button>
-                          <span className="mx-2 fw-bold">{cartItem.quantity}</span>
-                          <Button variant="outline-success" size="sm" onClick={() => dispatch(increaseQuantity(product.id))}>
+                          <span className="fw-bold">{cartItem.quantity}</span>
+                          <Button
+                            variant="outline-success"
+                            size="sm"
+                            onClick={() =>
+                              dispatch(increaseQuantity(product.id))
+                            }
+                            className="ms-2"
+                          >
                             <AiOutlinePlus />
                           </Button>
                         </div>
                       ) : (
-                        <Button variant="outline-success" size="sm" onClick={() => handleAddToCart(product)}>
+                        <Button
+                          variant="outline-success"
+                          size="sm"
+                          onClick={() => handleAddToCart(product)}
+                        >
                           <BsCartPlus />
                         </Button>
                       )
                     ) : (
-                      <Button variant="secondary" size="sm" disabled>Out of Stock</Button>
+                      <Button variant="secondary" size="sm" disabled>
+                        Out of Stock
+                      </Button>
                     )}
-                    <Button variant="success" size="sm" disabled={product.Product_Quantity === 0}>Buy Now</Button>
+
+                    {/* Buy Now button - disabled when out of stock */}
+                    {!isOutOfStock ? (
+                      <Button
+                        as={Link}
+                        to="/checkout"
+                        variant="success"
+                        size="sm"
+                      >
+                        Buy Now
+                      </Button>
+                    ) : (
+                      <Button
+                        variant="success"
+                        size="sm"
+                        disabled
+                      >
+                        Buy Now
+                      </Button>
+                    )}
                   </div>
                 </Card.Body>
               </Card>
@@ -119,7 +226,6 @@ const ProductSearch = () => {
         })}
       </Row>
     </Container>
-    </motion.div>
   );
 };
 
