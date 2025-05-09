@@ -51,7 +51,7 @@ const Product = () => {
           quantity: product.quantity,
         })
       );
-      toast.success("Added to Cart!");
+     
     }
   };
 
