@@ -150,7 +150,7 @@ const Beverages = () => {
                     )}
 
                     <Button
-                      variant="warning"
+                      variant="success"
                       size="sm"
                       disabled={product.Product_Quantity === 0}
                     >

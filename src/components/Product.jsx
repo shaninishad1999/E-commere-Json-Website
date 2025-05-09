@@ -65,6 +65,8 @@ const Product = () => {
       <Row className="g-4">
         {products.map((product) => {
           const cartItem = cart.find((item) => item.id === product.id);
+          const isOutOfStock = product.Product_Quantity <= 0;
+          
           return (
             <Col key={product.id} xs={12} sm={6} md={4} lg={3}>
               <Card
@@ -95,7 +97,7 @@ const Product = () => {
                     {product.description}
                   </Card.Text>
 
-                  {product.Product_Quantity > 0 ? (
+                  {!isOutOfStock ? (
                     <span className="text-success fw-bold">In Stock</span>
                   ) : (
                     <span className="text-danger fw-bold">Out of Stock</span>
@@ -131,7 +133,7 @@ const Product = () => {
                   </div>
 
                   <div className="d-flex justify-content-between mt-auto">
-                    {product.Product_Quantity > 0 ? (
+                    {!isOutOfStock ? (
                       cartItem ? (
                         <div className="d-flex align-items-center">
                           <Button
@@ -171,15 +173,25 @@ const Product = () => {
                       </Button>
                     )}
 
-                    <Button
-                      as={Link}
-                      to="/checkout"
-                      variant="success"
-                      size="sm"
-                      disabled={product.Product_Quantity === 0}
-                    >
-                      Buy Now
-                    </Button>
+                    {/* Buy Now button - disabled when out of stock */}
+                    {!isOutOfStock ? (
+                      <Button
+                        as={Link}
+                        to="/checkout"
+                        variant="success"
+                        size="sm"
+                      >
+                        Buy Now
+                      </Button>
+                    ) : (
+                      <Button
+                        variant="success"
+                        size="sm"
+                        disabled
+                      >
+                        Buy Now
+                      </Button>
+                    )}
                   </div>
                 </Card.Body>
               </Card>
