@@ -12,9 +12,9 @@ const ProductDisplay = () => {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.mycart.cart); // Get cart state
   const [loading, setLoading] = useState(false);
+
   const [product, setProduct] = useState(null);
-  const [quantity, setQuantity] = useState(1); // Initialize quantity to 1
-  const navigate = useNavigate(); // Initialize navigate function
+  const navigate=useNavigate()
 
   useEffect(() => {
     const loadData = async () => {
@@ -33,44 +33,39 @@ const ProductDisplay = () => {
     return <h2 className="text-center">Loading...</h2>;
   }
 
-  // Get the default size (first one in the array)
-  const defaultSize = product.sizes && product.sizes.length > 0 ? product.sizes[0] : "Standard";
+  const cartItem = cart.find((item) => item.id === product.id);
 
+  const handleBuyNow=()=>{
+    navigate("/cartdata")
+  }
   const handleAddToCart = () => {
     if (product.Product_Quantity > 0) {
       setLoading(true);
       setTimeout(() => {
-        dispatch(
-          addtoCart({
-            id: product.id,
-            name: product.title,
-            category: product.category,
-            price: product.price,
-            image: product.img,
-            quantity: quantity, // Use the current quantity state
-            size: defaultSize
-          })
-        );
+        const cartItem = cart.find((item) => item.id === product.id);
+
+        if (cartItem) {
+          dispatch(increaseQuantity(product.id)); // Increase quantity if already in cart
+        } else {
+          dispatch(
+            addtoCart({
+              id: product.id,
+              name: product.title,
+              category: product.category,
+              price: product.price,
+              image: product.img,
+              quantity: 1,
+            })
+          );
+        }
+
         setLoading(false);
       }, 500);
     }
   };
-  
-  const handleBuy = () => {
-navigate("/cartdata"); // Navigate to checkout page after adding to cart
-  }
-  // Functions to increase and decrease quantity
-  const increaseQty = () => {
-    if (quantity < product.Product_Quantity) {
-      setQuantity(quantity + 1);
-    }
-  };
-  
-  const decreaseQty = () => {
-    if (quantity > 1) {
-      setQuantity(quantity - 1);
-    }
-  };
+
+  // Get only the first size if sizes array exists
+  const productSize = product.sizes && product.sizes.length > 0 ? product.sizes[0] : "Standard";
 
   return (
     <motion.div
@@ -123,10 +118,10 @@ navigate("/cartdata"); // Navigate to checkout page after adding to cart
               <span className="text-danger fw-bold">Out of Stock</span>
             )}
 
-            {/* Display only one size */}
+            {/* Single Size Display */}
             <h6>Size</h6>
             <div className="mb-3">
-              <span className="badge bg-secondary px-3 py-2">{defaultSize}</span>
+              <span className="badge bg-secondary p-2">{productSize}</span>
             </div>
 
             {/* Quantity Counter */}
@@ -135,26 +130,24 @@ navigate("/cartdata"); // Navigate to checkout page after adding to cart
               <Button
                 variant="outline-danger"
                 size="sm"
-                onClick={decreaseQty}
+                onClick={() => dispatch(decreaseQuantity(product.id))}
                 className="me-2"
-                disabled={quantity <= 1}
+                disabled={!cartItem} // Disable if not in cart
               >
                 <AiOutlineMinus />
               </Button>
 
-              <span className="fw-bold">{quantity}</span>
+              <span className="fw-bold">{cartItem ? cartItem.quantity : 0}</span>
 
               <Button
                 variant="outline-success"
                 size="sm"
-                onClick={increaseQty}
+                onClick={() => dispatch(increaseQuantity(product.id))}
                 className="ms-2"
-                disabled={quantity >= product.Product_Quantity}
               >
                 <AiOutlinePlus />
               </Button>
             </div>
-
             {/* Add to Cart Button */}
             <div className="mb-2">
               <Button
@@ -174,18 +167,13 @@ navigate("/cartdata"); // Navigate to checkout page after adding to cart
                 )}
               </Button>
             </div>
-            
             {/* Buy Now Button */}
             <div>
               <Button
                 variant="success"
                 size="sm"
                 className="w-96"
-                
-                onClick={() => {
-                  handleBuy();
-                  navigate("/cartdata"); // Navigate to checkout page after adding to cart
-                }}
+                onClick={handleBuyNow}
                 disabled={product.Product_Quantity === 0}
               >
                 Buy Now
